@@ -85,7 +85,7 @@ export function getActions() {
 					label: 'Message',
 					id: 'value',
 					default: '',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -456,14 +456,14 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 				{
 					type: 'textinput',
 					label: 'Destination room',
 					id: 'value',
 					default: '',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -483,14 +483,14 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 				{
 					type: 'textinput',
 					label: 'Scene name or ID (0 to 8)',
 					id: 'value',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -510,14 +510,14 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 				{
 					type: 'textinput',
 					label: 'Scene name or ID (0 to 8)',
 					id: 'value',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -537,14 +537,14 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 				{
 					type: 'textinput',
 					label: 'Group ID (1 to 8)',
 					id: 'value',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -564,7 +564,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -583,7 +583,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -602,7 +602,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -621,7 +621,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -640,7 +640,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -659,7 +659,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -678,14 +678,14 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 				{
 					type: 'textinput',
 					label: 'Message',
 					id: 'value',
 					default: '',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -705,7 +705,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -724,7 +724,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 			],
 			callback: async (action, context) => {
@@ -743,7 +743,7 @@ export function getActions() {
 					description: 'Position number or stream ID',
 					id: 'target',
 					default: '1',
-					useVariables: true,
+					useVariables: { local: true },
 				},
 				{
 					type: 'number',

@@ -6,6 +6,25 @@ export function getFeedbacks() {
 	const ColorWhite = combineRgb(255, 255, 255)
 	const ColorGreen = combineRgb(0, 200, 0)
 
+	const getStream = async (context, id) => {
+		let stream = await context.parseVariablesInString(id)
+		stream =
+			this.states[stream] ??
+			Object.values(this.states).find(
+				(e) =>
+					e.position === stream ||
+					e.position ===
+						parseInt(
+							stream
+								.split('')
+								.filter((e) => parseInt(e))
+								.join(''),
+						) ||
+					e.label === stream,
+			)
+		return stream
+	}
+
 	feedbacks['mic'] = {
 		type: 'boolean',
 		name: 'Mic Status',
@@ -16,6 +35,7 @@ export function getFeedbacks() {
 				label: 'Stream',
 				id: 'stream',
 				allowCustom: true,
+				useVariables: { local: true },
 				default: this.streams[0]?.id,
 				choices: this.streams,
 			},
@@ -34,8 +54,8 @@ export function getFeedbacks() {
 			color: ColorWhite,
 			bgcolor: ColorGreen,
 		},
-		callback: (feedback) => {
-			let stream = this.states[feedback.options.stream]
+		callback: async (feedback, context) => {
+			let stream = await getStream(context, feedback.options.stream)
 			if (stream) {
 				if (stream.position && !stream.director) {
 					if (stream?.others?.['mute-guest'] == 1) {
@@ -58,6 +78,8 @@ export function getFeedbacks() {
 				type: 'dropdown',
 				label: 'Stream',
 				id: 'stream',
+				allowCustom: true,
+				useVariables: { local: true },
 				default: this.streams[0]?.id,
 				choices: this.streams,
 			},
@@ -76,8 +98,8 @@ export function getFeedbacks() {
 			color: ColorWhite,
 			bgcolor: ColorGreen,
 		},
-		callback: (feedback) => {
-			let stream = this.states[feedback.options.stream]
+		callback: async (feedback, context) => {
+			let stream = await getStream(context, feedback.options.stream)
 			if (stream) {
 				if (stream.position && !stream.director) {
 					if (stream?.others?.['hide-guest'] == 1) {
@@ -100,6 +122,8 @@ export function getFeedbacks() {
 				type: 'dropdown',
 				label: 'Stream',
 				id: 'stream',
+				allowCustom: true,
+				useVariables: { local: true },
 				default: this.streams[0]?.id,
 				choices: this.streams,
 			},
@@ -118,8 +142,8 @@ export function getFeedbacks() {
 			color: ColorWhite,
 			bgcolor: ColorGreen,
 		},
-		callback: (feedback) => {
-			return this.states[feedback.options.stream]?.speakerMuted === feedback.options.state
+		callback: async (feedback, context) => {
+			return (await getStream(context, feedback.options.stream))?.speakerMuted === feedback.options.state
 		},
 	}
 	feedbacks['guestScene'] = {
@@ -132,6 +156,7 @@ export function getFeedbacks() {
 				label: 'Stream',
 				id: 'stream',
 				allowCustom: true,
+				useVariables: { local: true },
 				default: this.streams[0]?.id,
 				choices: this.streams,
 			},
@@ -140,15 +165,16 @@ export function getFeedbacks() {
 				label: 'Scene name or ID (0 to 8)',
 				id: 'scene',
 				default: '1',
+				useVariables: { local: true },
 			},
 		],
 		defaultStyle: {
 			color: ColorWhite,
 			bgcolor: ColorGreen,
 		},
-		callback: (feedback) => {
-			let stream = this.states[feedback.options.stream]
-			let scene = feedback.options.scene
+		callback: async (feedback, context) => {
+			let stream = await getStream(context, feedback.options.stream)
+			let scene = await context.parseVariablesInString(feedback.options.scene);
 			if (stream) {
 				return stream?.scenes?.[scene] == true
 			} else {
