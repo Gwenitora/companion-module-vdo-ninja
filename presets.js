@@ -76,7 +76,15 @@ export function getPresets() {
 				],
 				steps: [
 					{
-						down: [],
+						down: [
+							{
+								actionId: 'guestCameraControl',
+								options: {
+									target: stream.position,
+									cameraAction: 'toggleHide',
+								},
+							},
+						],
 						up: [],
 					},
 				],

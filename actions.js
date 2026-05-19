@@ -573,6 +573,26 @@ export function getActions() {
 			},
 		},
 
+		guestCameraControl: {
+			name: 'Director: Guest Camera Control',
+			description: 'Mute, unmute, hide, unhide or toggle a specific guest camera',
+			options: [
+				{
+					type: 'textinput',
+					label: 'Guest',
+					description: 'Position number or stream ID',
+					id: 'target',
+					default: '1',
+					useVariables: { local: true },
+				},
+			],
+			callback: async (action, context) => {
+				const target = await context.parseVariablesInString(action.options.target)
+				this.log('info', target)
+				this.sendRequest('camera', target)
+			},
+		},
+
 		guestHangup: {
 			name: 'Director: Hang Up Guest',
 			description: 'Hangup a specific guest',
