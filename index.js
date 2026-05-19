@@ -209,17 +209,22 @@ class VDONinjaInstance extends InstanceBase {
 			})
 			this.streams.splice(index, 1, streamObject)
 			this.initFeedbacks()
+			this.checkFeedbacks()
+
 			this.initVariables()
+			this.updateVariables()
+
 			this.initPresets()
 		} else {
 			this.streams.push(streamObject)
 			this.initFeedbacks()
+			this.checkFeedbacks()
+
 			this.initVariables()
 			this.updateVariables()
+
 			this.initPresets()
 		}
-		this.checkFeedbacks()
-		this.updateVariables()
 	}
 
 	processUpdate(data) {
@@ -233,9 +238,19 @@ class VDONinjaInstance extends InstanceBase {
 							return o.id === data.streamID
 						})
 						this.streams.splice(hangup, 1)
+						Object.values(this.states)
+							.sort((a, b) => a.position - b.position)
+							.forEach((data, i) => {
+								data.position = i
+								this.states[data.streamID] = data
+							})
 						this.initActions()
+
 						this.initVariables()
+						this.updateVariables()
+
 						this.initFeedbacks()
+						this.checkFeedbacks()
 					}
 					break
 				case 'newViewConnection':
@@ -254,6 +269,12 @@ class VDONinjaInstance extends InstanceBase {
 							return o.id === data.value
 						})
 						this.streams.splice(endView, 1)
+						Object.values(this.states)
+							.sort((a, b) => a.position - b.position)
+							.forEach((data, i) => {
+								data.position = i
+								this.states[data.streamID] = data
+							})
 						this.initActions()
 						this.initVariables()
 						this.initFeedbacks()

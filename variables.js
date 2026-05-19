@@ -1,5 +1,6 @@
 export function getVariables() {
 	const variables = []
+	variables.push({ variableId: `guest_numbers`, name: `Number of guest connected` })
 
 	for (let x in this.states) {
 		let data = this.states[x]
@@ -27,6 +28,10 @@ export function getVariables() {
 }
 
 export function updateVariables() {
+	this.setVariableValues({
+		[`guest_numbers`]: Object.keys(this.states).length - 1, // Subtract 1 to exclude director
+	})
+
 	for (let x in this.states) {
 		let data = this.states[x]
 		let label = data.label ? data.label : `Guest ${data.position}`

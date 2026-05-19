@@ -46,6 +46,7 @@ export function getFeedbacks() {
 				default: true,
 				choices: [
 					{ id: true, label: 'Muted' },
+					{ id: 'dir', label: 'Muted by Director' },
 					{ id: false, label: 'Unmuted' },
 				],
 			},
@@ -58,13 +59,13 @@ export function getFeedbacks() {
 			let stream = await getStream(context, feedback.options.stream)
 			if (stream) {
 				if (stream.position && !stream.director) {
-					if (stream?.others?.['mute-guest'] == 1) {
-						return feedback.options.state ?? false
+					if (feedback.options.state === 'dir') {
+						return stream.others?.['mute-guest'] == 1
 					} else {
-						return stream?.muted === feedback.options.state
+						return stream.muted === feedback.options.state || stream.others?.['mute-guest'] == 1
 					}
 				} else {
-					return stream?.muted === feedback.options.state
+					return stream.muted === feedback.options.state
 				}
 			}
 		},
@@ -90,6 +91,7 @@ export function getFeedbacks() {
 				default: true,
 				choices: [
 					{ id: true, label: 'Muted' },
+					{ id: 'dir', label: 'Muted by Director' },
 					{ id: false, label: 'Unmuted' },
 				],
 			},
@@ -102,13 +104,17 @@ export function getFeedbacks() {
 			let stream = await getStream(context, feedback.options.stream)
 			if (stream) {
 				if (stream.position && !stream.director) {
-					if (stream?.others?.['hide-guest'] == 1) {
-						return feedback.options.state ?? false
+					if (feedback.options.state === 'dir') {
+						return stream.others?.['mute-video-guest'] == 1 || stream.others?.['hide-guest'] == 1
 					} else {
-						return stream?.videoMuted === feedback.options.state
+						return (
+							stream.videoMuted === feedback.options.state ||
+							stream.others?.['mute-video-guest'] == 1 ||
+							stream.others?.['hide-guest'] == 1
+						)
 					}
 				} else {
-					return stream?.videoMuted === feedback.options.state
+					return stream.videoMuted === feedback.options.state
 				}
 			}
 		},
@@ -174,7 +180,7 @@ export function getFeedbacks() {
 		},
 		callback: async (feedback, context) => {
 			let stream = await getStream(context, feedback.options.stream)
-			let scene = await context.parseVariablesInString(feedback.options.scene);
+			let scene = await context.parseVariablesInString(feedback.options.scene)
 			if (stream) {
 				return stream?.scenes?.[scene] == true
 			} else {
